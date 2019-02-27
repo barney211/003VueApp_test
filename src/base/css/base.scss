@@ -1,0 +1,50 @@
+/*使用flexible.js时将px转换为rem的函数, 750的设计稿所以下边为75px*/
+@function torem($px){
+  @return $px / 75px * 1rem;
+}
+
+/*使用flexible.js时用来处理字体*/
+@mixin fz($fz){
+  font-size:$fz;
+  [data-dpr='2'] & {
+    font-size: $fz * 2;
+  }
+  [data-dpr="3"] & {
+    font-size: $fz * 3;
+  }
+}
+/*为适应retina或非retina屏幕选择不同图片（2x,3x）*/
+@mixin dpr-img($url,$name,$type){
+  background-image: url($url+"2x/"+$name+$type);
+  [data-dpr='3'] & {
+    background-image: url($url+"2x/"+$name+$type);
+  }
+}
+//以下常用的一些样式
+//单行文本溢出和多行文本溢出
+@mixin t-overflow($line:1) {
+  @if $line==1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  @else {
+    display: -webkit-box;
+    -webkit-line-clamp: $line;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+//左右垂直居中
+@mixin table-center {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
